@@ -1,0 +1,878 @@
+
+HealthAcceleration.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000504  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000006  00800060  00000504  00000598  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000009  00800066  00800066  0000059e  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000059e  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000005d0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000108  00000000  00000000  0000060c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00001414  00000000  00000000  00000714  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000081f  00000000  00000000  00001b28  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000575  00000000  00000000  00002347  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000234  00000000  00000000  000028bc  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000086f  00000000  00000000  00002af0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    000009f9  00000000  00000000  0000335f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 000000e0  00000000  00000000  00003d58  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2c 00 	jmp	0x58	; 0x58 <__dtors_end>
+   4:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+   8:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+   c:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  10:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  14:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  18:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  1c:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  20:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  24:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  28:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  2c:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  30:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  34:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  38:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  3c:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  40:	0c 94 3c 02 	jmp	0x478	; 0x478 <__vector_16>
+  44:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  48:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  4c:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+  50:	0c 94 54 00 	jmp	0xa8	; 0xa8 <__bad_interrupt>
+
+00000054 <__ctors_start>:
+  54:	62 02       	muls	r22, r18
+
+00000056 <__ctors_end>:
+  56:	6a 02       	muls	r22, r26
+
+00000058 <__dtors_end>:
+  58:	11 24       	eor	r1, r1
+  5a:	1f be       	out	0x3f, r1	; 63
+  5c:	cf e5       	ldi	r28, 0x5F	; 95
+  5e:	d8 e0       	ldi	r29, 0x08	; 8
+  60:	de bf       	out	0x3e, r29	; 62
+  62:	cd bf       	out	0x3d, r28	; 61
+
+00000064 <__do_copy_data>:
+  64:	10 e0       	ldi	r17, 0x00	; 0
+  66:	a0 e6       	ldi	r26, 0x60	; 96
+  68:	b0 e0       	ldi	r27, 0x00	; 0
+  6a:	e4 e0       	ldi	r30, 0x04	; 4
+  6c:	f5 e0       	ldi	r31, 0x05	; 5
+  6e:	02 c0       	rjmp	.+4      	; 0x74 <__do_copy_data+0x10>
+  70:	05 90       	lpm	r0, Z+
+  72:	0d 92       	st	X+, r0
+  74:	a6 36       	cpi	r26, 0x66	; 102
+  76:	b1 07       	cpc	r27, r17
+  78:	d9 f7       	brne	.-10     	; 0x70 <__do_copy_data+0xc>
+
+0000007a <__do_clear_bss>:
+  7a:	20 e0       	ldi	r18, 0x00	; 0
+  7c:	a6 e6       	ldi	r26, 0x66	; 102
+  7e:	b0 e0       	ldi	r27, 0x00	; 0
+  80:	01 c0       	rjmp	.+2      	; 0x84 <.do_clear_bss_start>
+
+00000082 <.do_clear_bss_loop>:
+  82:	1d 92       	st	X+, r1
+
+00000084 <.do_clear_bss_start>:
+  84:	af 36       	cpi	r26, 0x6F	; 111
+  86:	b2 07       	cpc	r27, r18
+  88:	e1 f7       	brne	.-8      	; 0x82 <.do_clear_bss_loop>
+
+0000008a <__do_global_ctors>:
+  8a:	10 e0       	ldi	r17, 0x00	; 0
+  8c:	cb e2       	ldi	r28, 0x2B	; 43
+  8e:	d0 e0       	ldi	r29, 0x00	; 0
+  90:	04 c0       	rjmp	.+8      	; 0x9a <__do_global_ctors+0x10>
+  92:	21 97       	sbiw	r28, 0x01	; 1
+  94:	fe 01       	movw	r30, r28
+  96:	0e 94 6f 02 	call	0x4de	; 0x4de <__tablejump2__>
+  9a:	ca 32       	cpi	r28, 0x2A	; 42
+  9c:	d1 07       	cpc	r29, r17
+  9e:	c9 f7       	brne	.-14     	; 0x92 <__do_global_ctors+0x8>
+  a0:	0e 94 13 02 	call	0x426	; 0x426 <main>
+  a4:	0c 94 75 02 	jmp	0x4ea	; 0x4ea <__do_global_dtors>
+
+000000a8 <__bad_interrupt>:
+  a8:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000ac <_ZN7atmicro13AccelerometerC1ENS_10ADCchannelES1_S1_>:
+#include <avr/interrupt.h>
+
+namespace atmicro
+{
+	// default constructor
+	Accelerometer::Accelerometer(ADCchannel chx, ADCchannel chy, ADCchannel chz)
+  ac:	fc 01       	movw	r30, r24
+	{
+		//setting the values
+		adcx = chx; adcy = chy; adcz = chz;
+  ae:	66 83       	std	Z+6, r22	; 0x06
+  b0:	47 83       	std	Z+7, r20	; 0x07
+  b2:	20 87       	std	Z+8, r18	; 0x08
+		x = 0; y = 0; z = 0;
+  b4:	11 82       	std	Z+1, r1	; 0x01
+  b6:	10 82       	st	Z, r1
+  b8:	13 82       	std	Z+3, r1	; 0x03
+  ba:	12 82       	std	Z+2, r1	; 0x02
+  bc:	15 82       	std	Z+5, r1	; 0x05
+  be:	14 82       	std	Z+4, r1	; 0x04
+		//setting global config
+		ADMUX &= ~((1<<REFS0) | (1<<REFS1));
+  c0:	87 b1       	in	r24, 0x07	; 7
+  c2:	8f 73       	andi	r24, 0x3F	; 63
+  c4:	87 b9       	out	0x07, r24	; 7
+		ADCSRA &= ~((1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0));
+  c6:	86 b1       	in	r24, 0x06	; 6
+  c8:	88 7f       	andi	r24, 0xF8	; 248
+  ca:	86 b9       	out	0x06, r24	; 6
+		ADCSRA |= ADCconfig::PS16 << ADPS0;
+  cc:	32 9a       	sbi	0x06, 2	; 6
+		ADMUX |= ADCconfig::IREF << REFS0;
+  ce:	87 b1       	in	r24, 0x07	; 7
+  d0:	80 6c       	ori	r24, 0xC0	; 192
+  d2:	87 b9       	out	0x07, r24	; 7
+		ADCSRA |= 1<<ADIE;
+  d4:	33 9a       	sbi	0x06, 3	; 6
+		ADCSRA |= 1<<ADEN;
+  d6:	37 9a       	sbi	0x06, 7	; 6
+		sei();
+  d8:	78 94       	sei
+		//initializing and starting ADC conversion
+		ADMUX &= (0b11100000);
+  da:	87 b1       	in	r24, 0x07	; 7
+  dc:	80 7e       	andi	r24, 0xE0	; 224
+  de:	87 b9       	out	0x07, r24	; 7
+		ADMUX |= adcx;
+  e0:	97 b1       	in	r25, 0x07	; 7
+  e2:	86 81       	ldd	r24, Z+6	; 0x06
+  e4:	89 2b       	or	r24, r25
+  e6:	87 b9       	out	0x07, r24	; 7
+		ADCSRA |= 1 << ADSC;
+  e8:	36 9a       	sbi	0x06, 6	; 6
+  ea:	08 95       	ret
+
+000000ec <_ZN7atmicro13AccelerometerD1Ev>:
+	} //Accelerometer
+
+	// default destructor
+	Accelerometer::~Accelerometer()
+  ec:	08 95       	ret
+
+000000ee <_ZN7atmicro13Accelerometer6updateEv>:
+	{
+	} //~Accelerometer
+
+	void Accelerometer::update()
+	{
+  ee:	fc 01       	movw	r30, r24
+		if ((ADMUX & 0b00011111) == adcx)
+  f0:	27 b1       	in	r18, 0x07	; 7
+  f2:	2f 71       	andi	r18, 0x1F	; 31
+  f4:	30 e0       	ldi	r19, 0x00	; 0
+  f6:	86 81       	ldd	r24, Z+6	; 0x06
+  f8:	90 e0       	ldi	r25, 0x00	; 0
+  fa:	28 17       	cp	r18, r24
+  fc:	39 07       	cpc	r19, r25
+  fe:	71 f4       	brne	.+28     	; 0x11c <_ZN7atmicro13Accelerometer6updateEv+0x2e>
+		{
+			uint16_t lowerX = ADCL;
+ 100:	84 b1       	in	r24, 0x04	; 4
+			x = (ADCH << 8) | lowerX;
+ 102:	25 b1       	in	r18, 0x05	; 5
+ 104:	90 e0       	ldi	r25, 0x00	; 0
+ 106:	92 2b       	or	r25, r18
+ 108:	91 83       	std	Z+1, r25	; 0x01
+ 10a:	80 83       	st	Z, r24
+			ADMUX &= (0b11100000);
+ 10c:	87 b1       	in	r24, 0x07	; 7
+ 10e:	80 7e       	andi	r24, 0xE0	; 224
+ 110:	87 b9       	out	0x07, r24	; 7
+			ADMUX |= adcy;
+ 112:	97 b1       	in	r25, 0x07	; 7
+ 114:	87 81       	ldd	r24, Z+7	; 0x07
+ 116:	89 2b       	or	r24, r25
+ 118:	87 b9       	out	0x07, r24	; 7
+ 11a:	2b c0       	rjmp	.+86     	; 0x172 <_ZN7atmicro13Accelerometer6updateEv+0x84>
+		}
+		else if ((ADMUX & 0b00011111) == adcy)
+ 11c:	27 b1       	in	r18, 0x07	; 7
+ 11e:	2f 71       	andi	r18, 0x1F	; 31
+ 120:	30 e0       	ldi	r19, 0x00	; 0
+ 122:	87 81       	ldd	r24, Z+7	; 0x07
+ 124:	90 e0       	ldi	r25, 0x00	; 0
+ 126:	28 17       	cp	r18, r24
+ 128:	39 07       	cpc	r19, r25
+ 12a:	71 f4       	brne	.+28     	; 0x148 <_ZN7atmicro13Accelerometer6updateEv+0x5a>
+		{
+			uint16_t lowerY = ADCL;
+ 12c:	84 b1       	in	r24, 0x04	; 4
+			y = (ADCH << 8) | lowerY;
+ 12e:	25 b1       	in	r18, 0x05	; 5
+ 130:	90 e0       	ldi	r25, 0x00	; 0
+ 132:	92 2b       	or	r25, r18
+ 134:	93 83       	std	Z+3, r25	; 0x03
+ 136:	82 83       	std	Z+2, r24	; 0x02
+			ADMUX &= (0b11100000);
+ 138:	87 b1       	in	r24, 0x07	; 7
+ 13a:	80 7e       	andi	r24, 0xE0	; 224
+ 13c:	87 b9       	out	0x07, r24	; 7
+			ADMUX |= adcz;
+ 13e:	97 b1       	in	r25, 0x07	; 7
+ 140:	80 85       	ldd	r24, Z+8	; 0x08
+ 142:	89 2b       	or	r24, r25
+ 144:	87 b9       	out	0x07, r24	; 7
+ 146:	15 c0       	rjmp	.+42     	; 0x172 <_ZN7atmicro13Accelerometer6updateEv+0x84>
+		}
+		else if ((ADMUX & 0b00011111) == adcz)
+ 148:	87 b1       	in	r24, 0x07	; 7
+ 14a:	8f 71       	andi	r24, 0x1F	; 31
+ 14c:	90 e0       	ldi	r25, 0x00	; 0
+ 14e:	20 85       	ldd	r18, Z+8	; 0x08
+ 150:	30 e0       	ldi	r19, 0x00	; 0
+ 152:	82 17       	cp	r24, r18
+ 154:	93 07       	cpc	r25, r19
+ 156:	69 f4       	brne	.+26     	; 0x172 <_ZN7atmicro13Accelerometer6updateEv+0x84>
+		{
+			uint16_t lowerZ = ADCL;
+ 158:	84 b1       	in	r24, 0x04	; 4
+			z = (ADCH << 8) | lowerZ;
+ 15a:	25 b1       	in	r18, 0x05	; 5
+ 15c:	90 e0       	ldi	r25, 0x00	; 0
+ 15e:	92 2b       	or	r25, r18
+ 160:	95 83       	std	Z+5, r25	; 0x05
+ 162:	84 83       	std	Z+4, r24	; 0x04
+			ADMUX &= (0b11100000);
+ 164:	87 b1       	in	r24, 0x07	; 7
+ 166:	80 7e       	andi	r24, 0xE0	; 224
+ 168:	87 b9       	out	0x07, r24	; 7
+			ADMUX |= adcx;
+ 16a:	97 b1       	in	r25, 0x07	; 7
+ 16c:	86 81       	ldd	r24, Z+6	; 0x06
+ 16e:	89 2b       	or	r24, r25
+ 170:	87 b9       	out	0x07, r24	; 7
+		}
+		ADCSRA |= 1 << ADSC;
+ 172:	36 9a       	sbi	0x06, 6	; 6
+ 174:	08 95       	ret
+
+00000176 <_ZN7atmicro6Device9setStatusENS_3PINEb>:
+namespace atmicro
+{
+	// functions
+	void Device::setStatus(PIN pin, bool state)
+	{
+		if (state == true)
+ 176:	66 23       	and	r22, r22
+ 178:	09 f4       	brne	.+2      	; 0x17c <_ZN7atmicro6Device9setStatusENS_3PINEb+0x6>
+ 17a:	43 c0       	rjmp	.+134    	; 0x202 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x8c>
+		{
+			if (pin >= IOPINA0 && pin <= IOPINA7)
+ 17c:	88 30       	cpi	r24, 0x08	; 8
+ 17e:	68 f4       	brcc	.+26     	; 0x19a <_ZN7atmicro6Device9setStatusENS_3PINEb+0x24>
+				PORTA |= 1 << (pin - IOPORTA);
+ 180:	4b b3       	in	r20, 0x1b	; 27
+ 182:	21 e0       	ldi	r18, 0x01	; 1
+ 184:	30 e0       	ldi	r19, 0x00	; 0
+ 186:	b9 01       	movw	r22, r18
+ 188:	02 c0       	rjmp	.+4      	; 0x18e <_ZN7atmicro6Device9setStatusENS_3PINEb+0x18>
+ 18a:	66 0f       	add	r22, r22
+ 18c:	77 1f       	adc	r23, r23
+ 18e:	8a 95       	dec	r24
+ 190:	e2 f7       	brpl	.-8      	; 0x18a <_ZN7atmicro6Device9setStatusENS_3PINEb+0x14>
+ 192:	cb 01       	movw	r24, r22
+ 194:	84 2b       	or	r24, r20
+ 196:	8b bb       	out	0x1b, r24	; 27
+ 198:	08 95       	ret
+			else if (pin >= IOPINB0 && pin <= IOPINB7)
+ 19a:	98 ef       	ldi	r25, 0xF8	; 248
+ 19c:	98 0f       	add	r25, r24
+ 19e:	98 30       	cpi	r25, 0x08	; 8
+ 1a0:	68 f4       	brcc	.+26     	; 0x1bc <_ZN7atmicro6Device9setStatusENS_3PINEb+0x46>
+				PORTB |= 1 << (pin - IOPORTB);
+ 1a2:	48 b3       	in	r20, 0x18	; 24
+ 1a4:	21 e0       	ldi	r18, 0x01	; 1
+ 1a6:	30 e0       	ldi	r19, 0x00	; 0
+ 1a8:	b9 01       	movw	r22, r18
+ 1aa:	02 c0       	rjmp	.+4      	; 0x1b0 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x3a>
+ 1ac:	66 0f       	add	r22, r22
+ 1ae:	77 1f       	adc	r23, r23
+ 1b0:	9a 95       	dec	r25
+ 1b2:	e2 f7       	brpl	.-8      	; 0x1ac <_ZN7atmicro6Device9setStatusENS_3PINEb+0x36>
+ 1b4:	cb 01       	movw	r24, r22
+ 1b6:	84 2b       	or	r24, r20
+ 1b8:	88 bb       	out	0x18, r24	; 24
+ 1ba:	08 95       	ret
+			else if (pin >= IOPINC0 && pin <= IOPINC7)
+ 1bc:	90 ef       	ldi	r25, 0xF0	; 240
+ 1be:	98 0f       	add	r25, r24
+ 1c0:	98 30       	cpi	r25, 0x08	; 8
+ 1c2:	68 f4       	brcc	.+26     	; 0x1de <_ZN7atmicro6Device9setStatusENS_3PINEb+0x68>
+				PORTC |= 1 << (pin - IOPORTC);
+ 1c4:	45 b3       	in	r20, 0x15	; 21
+ 1c6:	21 e0       	ldi	r18, 0x01	; 1
+ 1c8:	30 e0       	ldi	r19, 0x00	; 0
+ 1ca:	b9 01       	movw	r22, r18
+ 1cc:	02 c0       	rjmp	.+4      	; 0x1d2 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x5c>
+ 1ce:	66 0f       	add	r22, r22
+ 1d0:	77 1f       	adc	r23, r23
+ 1d2:	9a 95       	dec	r25
+ 1d4:	e2 f7       	brpl	.-8      	; 0x1ce <_ZN7atmicro6Device9setStatusENS_3PINEb+0x58>
+ 1d6:	cb 01       	movw	r24, r22
+ 1d8:	84 2b       	or	r24, r20
+ 1da:	85 bb       	out	0x15, r24	; 21
+ 1dc:	08 95       	ret
+			else if (pin >= IOPIND0 && pin <= IOPIND7)
+ 1de:	98 ee       	ldi	r25, 0xE8	; 232
+ 1e0:	98 0f       	add	r25, r24
+ 1e2:	98 30       	cpi	r25, 0x08	; 8
+ 1e4:	08 f0       	brcs	.+2      	; 0x1e8 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x72>
+ 1e6:	52 c0       	rjmp	.+164    	; 0x28c <_ZN7atmicro6Device9setStatusENS_3PINEb+0x116>
+				PORTD |= 1 << (pin - IOPORTD);
+ 1e8:	42 b3       	in	r20, 0x12	; 18
+ 1ea:	21 e0       	ldi	r18, 0x01	; 1
+ 1ec:	30 e0       	ldi	r19, 0x00	; 0
+ 1ee:	b9 01       	movw	r22, r18
+ 1f0:	02 c0       	rjmp	.+4      	; 0x1f6 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x80>
+ 1f2:	66 0f       	add	r22, r22
+ 1f4:	77 1f       	adc	r23, r23
+ 1f6:	9a 95       	dec	r25
+ 1f8:	e2 f7       	brpl	.-8      	; 0x1f2 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x7c>
+ 1fa:	cb 01       	movw	r24, r22
+ 1fc:	84 2b       	or	r24, r20
+ 1fe:	82 bb       	out	0x12, r24	; 18
+ 200:	08 95       	ret
+		}
+		else if (state == false)
+		{
+			if (pin >= IOPINA0 && pin <= IOPINA7)
+ 202:	88 30       	cpi	r24, 0x08	; 8
+ 204:	70 f4       	brcc	.+28     	; 0x222 <_ZN7atmicro6Device9setStatusENS_3PINEb+0xac>
+				PORTA &= ~(1 << (pin - IOPORTA));
+ 206:	4b b3       	in	r20, 0x1b	; 27
+ 208:	21 e0       	ldi	r18, 0x01	; 1
+ 20a:	30 e0       	ldi	r19, 0x00	; 0
+ 20c:	b9 01       	movw	r22, r18
+ 20e:	02 c0       	rjmp	.+4      	; 0x214 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x9e>
+ 210:	66 0f       	add	r22, r22
+ 212:	77 1f       	adc	r23, r23
+ 214:	8a 95       	dec	r24
+ 216:	e2 f7       	brpl	.-8      	; 0x210 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x9a>
+ 218:	cb 01       	movw	r24, r22
+ 21a:	80 95       	com	r24
+ 21c:	84 23       	and	r24, r20
+ 21e:	8b bb       	out	0x1b, r24	; 27
+ 220:	08 95       	ret
+			else if (pin >= IOPINB0 && pin <= IOPINB7)
+ 222:	98 ef       	ldi	r25, 0xF8	; 248
+ 224:	98 0f       	add	r25, r24
+ 226:	98 30       	cpi	r25, 0x08	; 8
+ 228:	70 f4       	brcc	.+28     	; 0x246 <_ZN7atmicro6Device9setStatusENS_3PINEb+0xd0>
+				PORTB &= ~(1 << (pin - IOPORTB));
+ 22a:	48 b3       	in	r20, 0x18	; 24
+ 22c:	21 e0       	ldi	r18, 0x01	; 1
+ 22e:	30 e0       	ldi	r19, 0x00	; 0
+ 230:	b9 01       	movw	r22, r18
+ 232:	02 c0       	rjmp	.+4      	; 0x238 <_ZN7atmicro6Device9setStatusENS_3PINEb+0xc2>
+ 234:	66 0f       	add	r22, r22
+ 236:	77 1f       	adc	r23, r23
+ 238:	9a 95       	dec	r25
+ 23a:	e2 f7       	brpl	.-8      	; 0x234 <_ZN7atmicro6Device9setStatusENS_3PINEb+0xbe>
+ 23c:	cb 01       	movw	r24, r22
+ 23e:	80 95       	com	r24
+ 240:	84 23       	and	r24, r20
+ 242:	88 bb       	out	0x18, r24	; 24
+ 244:	08 95       	ret
+			else if (pin >= IOPINC0 && pin <= IOPINC7)
+ 246:	90 ef       	ldi	r25, 0xF0	; 240
+ 248:	98 0f       	add	r25, r24
+ 24a:	98 30       	cpi	r25, 0x08	; 8
+ 24c:	70 f4       	brcc	.+28     	; 0x26a <_ZN7atmicro6Device9setStatusENS_3PINEb+0xf4>
+				PORTC &= ~(1 << (pin - IOPORTC));
+ 24e:	45 b3       	in	r20, 0x15	; 21
+ 250:	21 e0       	ldi	r18, 0x01	; 1
+ 252:	30 e0       	ldi	r19, 0x00	; 0
+ 254:	b9 01       	movw	r22, r18
+ 256:	02 c0       	rjmp	.+4      	; 0x25c <_ZN7atmicro6Device9setStatusENS_3PINEb+0xe6>
+ 258:	66 0f       	add	r22, r22
+ 25a:	77 1f       	adc	r23, r23
+ 25c:	9a 95       	dec	r25
+ 25e:	e2 f7       	brpl	.-8      	; 0x258 <_ZN7atmicro6Device9setStatusENS_3PINEb+0xe2>
+ 260:	cb 01       	movw	r24, r22
+ 262:	80 95       	com	r24
+ 264:	84 23       	and	r24, r20
+ 266:	85 bb       	out	0x15, r24	; 21
+ 268:	08 95       	ret
+			else if (pin >= IOPIND0 && pin <= IOPIND7)
+ 26a:	98 ee       	ldi	r25, 0xE8	; 232
+ 26c:	98 0f       	add	r25, r24
+ 26e:	98 30       	cpi	r25, 0x08	; 8
+ 270:	68 f4       	brcc	.+26     	; 0x28c <_ZN7atmicro6Device9setStatusENS_3PINEb+0x116>
+				PORTD &= ~(1 << (pin - IOPORTD));
+ 272:	42 b3       	in	r20, 0x12	; 18
+ 274:	21 e0       	ldi	r18, 0x01	; 1
+ 276:	30 e0       	ldi	r19, 0x00	; 0
+ 278:	b9 01       	movw	r22, r18
+ 27a:	02 c0       	rjmp	.+4      	; 0x280 <_ZN7atmicro6Device9setStatusENS_3PINEb+0x10a>
+ 27c:	66 0f       	add	r22, r22
+ 27e:	77 1f       	adc	r23, r23
+ 280:	9a 95       	dec	r25
+ 282:	e2 f7       	brpl	.-8      	; 0x27c <_ZN7atmicro6Device9setStatusENS_3PINEb+0x106>
+ 284:	cb 01       	movw	r24, r22
+ 286:	80 95       	com	r24
+ 288:	84 23       	and	r24, r20
+ 28a:	82 bb       	out	0x12, r24	; 18
+ 28c:	08 95       	ret
+
+0000028e <_ZN7atmicro6Device12setDirectionENS_3PINEb>:
+		}
+	}
+	
+	void Device::setDirection(PIN pin, bool state)
+	{
+		if (state == true)
+ 28e:	66 23       	and	r22, r22
+ 290:	09 f4       	brne	.+2      	; 0x294 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x6>
+ 292:	43 c0       	rjmp	.+134    	; 0x31a <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x8c>
+		{
+			if (pin >= IOPINA0 && pin <= IOPINA7)
+ 294:	88 30       	cpi	r24, 0x08	; 8
+ 296:	68 f4       	brcc	.+26     	; 0x2b2 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x24>
+				DDRA |= 1 << (pin - IOPORTA);
+ 298:	4a b3       	in	r20, 0x1a	; 26
+ 29a:	21 e0       	ldi	r18, 0x01	; 1
+ 29c:	30 e0       	ldi	r19, 0x00	; 0
+ 29e:	b9 01       	movw	r22, r18
+ 2a0:	02 c0       	rjmp	.+4      	; 0x2a6 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x18>
+ 2a2:	66 0f       	add	r22, r22
+ 2a4:	77 1f       	adc	r23, r23
+ 2a6:	8a 95       	dec	r24
+ 2a8:	e2 f7       	brpl	.-8      	; 0x2a2 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x14>
+ 2aa:	cb 01       	movw	r24, r22
+ 2ac:	84 2b       	or	r24, r20
+ 2ae:	8a bb       	out	0x1a, r24	; 26
+ 2b0:	08 95       	ret
+			else if (pin >= IOPINB0 && pin <= IOPINB7)
+ 2b2:	98 ef       	ldi	r25, 0xF8	; 248
+ 2b4:	98 0f       	add	r25, r24
+ 2b6:	98 30       	cpi	r25, 0x08	; 8
+ 2b8:	68 f4       	brcc	.+26     	; 0x2d4 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x46>
+				DDRB |= 1 << (pin - IOPORTB);
+ 2ba:	47 b3       	in	r20, 0x17	; 23
+ 2bc:	21 e0       	ldi	r18, 0x01	; 1
+ 2be:	30 e0       	ldi	r19, 0x00	; 0
+ 2c0:	b9 01       	movw	r22, r18
+ 2c2:	02 c0       	rjmp	.+4      	; 0x2c8 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x3a>
+ 2c4:	66 0f       	add	r22, r22
+ 2c6:	77 1f       	adc	r23, r23
+ 2c8:	9a 95       	dec	r25
+ 2ca:	e2 f7       	brpl	.-8      	; 0x2c4 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x36>
+ 2cc:	cb 01       	movw	r24, r22
+ 2ce:	84 2b       	or	r24, r20
+ 2d0:	87 bb       	out	0x17, r24	; 23
+ 2d2:	08 95       	ret
+			else if (pin >= IOPINC0 && pin <= IOPINC7)
+ 2d4:	90 ef       	ldi	r25, 0xF0	; 240
+ 2d6:	98 0f       	add	r25, r24
+ 2d8:	98 30       	cpi	r25, 0x08	; 8
+ 2da:	68 f4       	brcc	.+26     	; 0x2f6 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x68>
+				DDRC |= 1 << (pin - IOPORTC);
+ 2dc:	44 b3       	in	r20, 0x14	; 20
+ 2de:	21 e0       	ldi	r18, 0x01	; 1
+ 2e0:	30 e0       	ldi	r19, 0x00	; 0
+ 2e2:	b9 01       	movw	r22, r18
+ 2e4:	02 c0       	rjmp	.+4      	; 0x2ea <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x5c>
+ 2e6:	66 0f       	add	r22, r22
+ 2e8:	77 1f       	adc	r23, r23
+ 2ea:	9a 95       	dec	r25
+ 2ec:	e2 f7       	brpl	.-8      	; 0x2e6 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x58>
+ 2ee:	cb 01       	movw	r24, r22
+ 2f0:	84 2b       	or	r24, r20
+ 2f2:	84 bb       	out	0x14, r24	; 20
+ 2f4:	08 95       	ret
+			else if (pin >= IOPIND0 && pin <= IOPIND7)
+ 2f6:	98 ee       	ldi	r25, 0xE8	; 232
+ 2f8:	98 0f       	add	r25, r24
+ 2fa:	98 30       	cpi	r25, 0x08	; 8
+ 2fc:	08 f0       	brcs	.+2      	; 0x300 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x72>
+ 2fe:	52 c0       	rjmp	.+164    	; 0x3a4 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x116>
+				DDRD |= 1 << (pin - IOPORTD);
+ 300:	41 b3       	in	r20, 0x11	; 17
+ 302:	21 e0       	ldi	r18, 0x01	; 1
+ 304:	30 e0       	ldi	r19, 0x00	; 0
+ 306:	b9 01       	movw	r22, r18
+ 308:	02 c0       	rjmp	.+4      	; 0x30e <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x80>
+ 30a:	66 0f       	add	r22, r22
+ 30c:	77 1f       	adc	r23, r23
+ 30e:	9a 95       	dec	r25
+ 310:	e2 f7       	brpl	.-8      	; 0x30a <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x7c>
+ 312:	cb 01       	movw	r24, r22
+ 314:	84 2b       	or	r24, r20
+ 316:	81 bb       	out	0x11, r24	; 17
+ 318:	08 95       	ret
+		}
+		else if (state == false)
+		{
+			if (pin >= IOPINA0 && pin <= IOPINA7)
+ 31a:	88 30       	cpi	r24, 0x08	; 8
+ 31c:	70 f4       	brcc	.+28     	; 0x33a <_ZN7atmicro6Device12setDirectionENS_3PINEb+0xac>
+				DDRA &= ~(1 << (pin - IOPORTA));
+ 31e:	4a b3       	in	r20, 0x1a	; 26
+ 320:	21 e0       	ldi	r18, 0x01	; 1
+ 322:	30 e0       	ldi	r19, 0x00	; 0
+ 324:	b9 01       	movw	r22, r18
+ 326:	02 c0       	rjmp	.+4      	; 0x32c <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x9e>
+ 328:	66 0f       	add	r22, r22
+ 32a:	77 1f       	adc	r23, r23
+ 32c:	8a 95       	dec	r24
+ 32e:	e2 f7       	brpl	.-8      	; 0x328 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x9a>
+ 330:	cb 01       	movw	r24, r22
+ 332:	80 95       	com	r24
+ 334:	84 23       	and	r24, r20
+ 336:	8a bb       	out	0x1a, r24	; 26
+ 338:	08 95       	ret
+			else if (pin >= IOPINB0 && pin <= IOPINB7)
+ 33a:	98 ef       	ldi	r25, 0xF8	; 248
+ 33c:	98 0f       	add	r25, r24
+ 33e:	98 30       	cpi	r25, 0x08	; 8
+ 340:	70 f4       	brcc	.+28     	; 0x35e <_ZN7atmicro6Device12setDirectionENS_3PINEb+0xd0>
+				DDRB &= ~(1 << (pin - IOPORTB));
+ 342:	47 b3       	in	r20, 0x17	; 23
+ 344:	21 e0       	ldi	r18, 0x01	; 1
+ 346:	30 e0       	ldi	r19, 0x00	; 0
+ 348:	b9 01       	movw	r22, r18
+ 34a:	02 c0       	rjmp	.+4      	; 0x350 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0xc2>
+ 34c:	66 0f       	add	r22, r22
+ 34e:	77 1f       	adc	r23, r23
+ 350:	9a 95       	dec	r25
+ 352:	e2 f7       	brpl	.-8      	; 0x34c <_ZN7atmicro6Device12setDirectionENS_3PINEb+0xbe>
+ 354:	cb 01       	movw	r24, r22
+ 356:	80 95       	com	r24
+ 358:	84 23       	and	r24, r20
+ 35a:	87 bb       	out	0x17, r24	; 23
+ 35c:	08 95       	ret
+			else if (pin >= IOPINC0 && pin <= IOPINC7)
+ 35e:	90 ef       	ldi	r25, 0xF0	; 240
+ 360:	98 0f       	add	r25, r24
+ 362:	98 30       	cpi	r25, 0x08	; 8
+ 364:	70 f4       	brcc	.+28     	; 0x382 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0xf4>
+				DDRC &= ~(1 << (pin - IOPORTC));
+ 366:	44 b3       	in	r20, 0x14	; 20
+ 368:	21 e0       	ldi	r18, 0x01	; 1
+ 36a:	30 e0       	ldi	r19, 0x00	; 0
+ 36c:	b9 01       	movw	r22, r18
+ 36e:	02 c0       	rjmp	.+4      	; 0x374 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0xe6>
+ 370:	66 0f       	add	r22, r22
+ 372:	77 1f       	adc	r23, r23
+ 374:	9a 95       	dec	r25
+ 376:	e2 f7       	brpl	.-8      	; 0x370 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0xe2>
+ 378:	cb 01       	movw	r24, r22
+ 37a:	80 95       	com	r24
+ 37c:	84 23       	and	r24, r20
+ 37e:	84 bb       	out	0x14, r24	; 20
+ 380:	08 95       	ret
+			else if (pin >= IOPIND0 && pin <= IOPIND7)
+ 382:	98 ee       	ldi	r25, 0xE8	; 232
+ 384:	98 0f       	add	r25, r24
+ 386:	98 30       	cpi	r25, 0x08	; 8
+ 388:	68 f4       	brcc	.+26     	; 0x3a4 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x116>
+				DDRD &= ~(1 << (pin - IOPORTD));
+ 38a:	41 b3       	in	r20, 0x11	; 17
+ 38c:	21 e0       	ldi	r18, 0x01	; 1
+ 38e:	30 e0       	ldi	r19, 0x00	; 0
+ 390:	b9 01       	movw	r22, r18
+ 392:	02 c0       	rjmp	.+4      	; 0x398 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x10a>
+ 394:	66 0f       	add	r22, r22
+ 396:	77 1f       	adc	r23, r23
+ 398:	9a 95       	dec	r25
+ 39a:	e2 f7       	brpl	.-8      	; 0x394 <_ZN7atmicro6Device12setDirectionENS_3PINEb+0x106>
+ 39c:	cb 01       	movw	r24, r22
+ 39e:	80 95       	com	r24
+ 3a0:	84 23       	and	r24, r20
+ 3a2:	81 bb       	out	0x11, r24	; 17
+ 3a4:	08 95       	ret
+
+000003a6 <_ZN7atmicro13DigitalOutput10initializeEv>:
+			off();
+		return status;
+	}
+
+	void DigitalOutput::initialize()
+	{
+ 3a6:	cf 93       	push	r28
+ 3a8:	df 93       	push	r29
+ 3aa:	ec 01       	movw	r28, r24
+		setDirection(pin, DDR_OUTPUT);
+ 3ac:	61 e0       	ldi	r22, 0x01	; 1
+ 3ae:	8b 81       	ldd	r24, Y+3	; 0x03
+ 3b0:	0e 94 47 01 	call	0x28e	; 0x28e <_ZN7atmicro6Device12setDirectionENS_3PINEb>
+		setStatus(pin, LOW);
+ 3b4:	60 e0       	ldi	r22, 0x00	; 0
+ 3b6:	8b 81       	ldd	r24, Y+3	; 0x03
+ 3b8:	0e 94 bb 00 	call	0x176	; 0x176 <_ZN7atmicro6Device9setStatusENS_3PINEb>
+	}
+ 3bc:	df 91       	pop	r29
+ 3be:	cf 91       	pop	r28
+ 3c0:	08 95       	ret
+
+000003c2 <_ZN7atmicro13DigitalOutputC1ENS_3PINE>:
+#include "DigitalOutput.h"
+
+namespace atmicro 
+{
+	// default constructor
+	DigitalOutput::DigitalOutput(PIN pin)
+ 3c2:	24 e6       	ldi	r18, 0x64	; 100
+ 3c4:	30 e0       	ldi	r19, 0x00	; 0
+ 3c6:	fc 01       	movw	r30, r24
+ 3c8:	31 83       	std	Z+1, r19	; 0x01
+ 3ca:	20 83       	st	Z, r18
+	{
+		this->pin = pin;
+ 3cc:	63 83       	std	Z+3, r22	; 0x03
+		this->status = false;
+ 3ce:	12 82       	std	Z+2, r1	; 0x02
+		initialize();
+ 3d0:	0e 94 d3 01 	call	0x3a6	; 0x3a6 <_ZN7atmicro13DigitalOutput10initializeEv>
+ 3d4:	08 95       	ret
+
+000003d6 <_ZN7atmicro13DigitalOutput2onEv>:
+		setDirection(pin, DDR_INPUT);
+		setStatus(pin, LOW);
+	} //~DigitalOutput
+
+	void DigitalOutput::on()
+	{
+ 3d6:	cf 93       	push	r28
+ 3d8:	df 93       	push	r29
+ 3da:	ec 01       	movw	r28, r24
+		setStatus(pin, HIGH);
+ 3dc:	61 e0       	ldi	r22, 0x01	; 1
+ 3de:	8b 81       	ldd	r24, Y+3	; 0x03
+ 3e0:	0e 94 bb 00 	call	0x176	; 0x176 <_ZN7atmicro6Device9setStatusENS_3PINEb>
+		status = true;
+ 3e4:	81 e0       	ldi	r24, 0x01	; 1
+ 3e6:	8a 83       	std	Y+2, r24	; 0x02
+	}
+ 3e8:	df 91       	pop	r29
+ 3ea:	cf 91       	pop	r28
+ 3ec:	08 95       	ret
+
+000003ee <_ZN7atmicro13DigitalOutput3offEv>:
+
+	void DigitalOutput::off()
+	{
+ 3ee:	cf 93       	push	r28
+ 3f0:	df 93       	push	r29
+ 3f2:	ec 01       	movw	r28, r24
+		setStatus(pin, LOW);
+ 3f4:	60 e0       	ldi	r22, 0x00	; 0
+ 3f6:	8b 81       	ldd	r24, Y+3	; 0x03
+ 3f8:	0e 94 bb 00 	call	0x176	; 0x176 <_ZN7atmicro6Device9setStatusENS_3PINEb>
+		status = false;
+ 3fc:	1a 82       	std	Y+2, r1	; 0x02
+	}
+ 3fe:	df 91       	pop	r29
+ 400:	cf 91       	pop	r28
+ 402:	08 95       	ret
+
+00000404 <_ZN7atmicro13DigitalOutput6toggleEv>:
+
+	bool DigitalOutput::toggle()
+	{
+ 404:	cf 93       	push	r28
+ 406:	df 93       	push	r29
+ 408:	ec 01       	movw	r28, r24
+		if (status == false)
+ 40a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 40c:	81 11       	cpse	r24, r1
+ 40e:	04 c0       	rjmp	.+8      	; 0x418 <_ZN7atmicro13DigitalOutput6toggleEv+0x14>
+			on();
+ 410:	ce 01       	movw	r24, r28
+ 412:	0e 94 eb 01 	call	0x3d6	; 0x3d6 <_ZN7atmicro13DigitalOutput2onEv>
+ 416:	03 c0       	rjmp	.+6      	; 0x41e <_ZN7atmicro13DigitalOutput6toggleEv+0x1a>
+		else if(status == true)
+			off();
+ 418:	ce 01       	movw	r24, r28
+ 41a:	0e 94 f7 01 	call	0x3ee	; 0x3ee <_ZN7atmicro13DigitalOutput3offEv>
+		return status;
+	}
+ 41e:	8a 81       	ldd	r24, Y+2	; 0x02
+ 420:	df 91       	pop	r29
+ 422:	cf 91       	pop	r28
+ 424:	08 95       	ret
+
+00000426 <main>:
+
+#include <avr/io.h>
+#include "atmicro.h"
+Accelerometer acc(ADC0, ADC1, ADC2);
+int main(void)
+{
+ 426:	cf 93       	push	r28
+ 428:	df 93       	push	r29
+ 42a:	00 d0       	rcall	.+0      	; 0x42c <main+0x6>
+ 42c:	00 d0       	rcall	.+0      	; 0x42e <main+0x8>
+ 42e:	cd b7       	in	r28, 0x3d	; 61
+ 430:	de b7       	in	r29, 0x3e	; 62
+	DigitalOutput led(IOPIND4);
+ 432:	6c e1       	ldi	r22, 0x1C	; 28
+ 434:	ce 01       	movw	r24, r28
+ 436:	01 96       	adiw	r24, 0x01	; 1
+ 438:	0e 94 e1 01 	call	0x3c2	; 0x3c2 <_ZN7atmicro13DigitalOutputC1ENS_3PINE>
+    int data[100][3] = {0};
+    while (1) 
+    {
+		led.toggle();
+		for(int i = 0; i < acc.x; i++)
+ 43c:	06 e6       	ldi	r16, 0x66	; 102
+ 43e:	10 e0       	ldi	r17, 0x00	; 0
+ 440:	e1 2c       	mov	r14, r1
+ 442:	f1 2c       	mov	r15, r1
+{
+	DigitalOutput led(IOPIND4);
+    int data[100][3] = {0};
+    while (1) 
+    {
+		led.toggle();
+ 444:	ce 01       	movw	r24, r28
+ 446:	01 96       	adiw	r24, 0x01	; 1
+ 448:	0e 94 02 02 	call	0x404	; 0x404 <_ZN7atmicro13DigitalOutput6toggleEv>
+		for(int i = 0; i < acc.x; i++)
+ 44c:	f8 01       	movw	r30, r16
+ 44e:	80 81       	ld	r24, Z
+ 450:	91 81       	ldd	r25, Z+1	; 0x01
+ 452:	18 16       	cp	r1, r24
+ 454:	19 06       	cpc	r1, r25
+ 456:	b4 f7       	brge	.-20     	; 0x444 <main+0x1e>
+ 458:	8e 2d       	mov	r24, r14
+ 45a:	9f 2d       	mov	r25, r15
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 45c:	e9 ef       	ldi	r30, 0xF9	; 249
+ 45e:	f0 e0       	ldi	r31, 0x00	; 0
+ 460:	31 97       	sbiw	r30, 0x01	; 1
+ 462:	f1 f7       	brne	.-4      	; 0x460 <main+0x3a>
+ 464:	00 c0       	rjmp	.+0      	; 0x466 <main+0x40>
+ 466:	00 00       	nop
+ 468:	01 96       	adiw	r24, 0x01	; 1
+ 46a:	f8 01       	movw	r30, r16
+ 46c:	20 81       	ld	r18, Z
+ 46e:	31 81       	ldd	r19, Z+1	; 0x01
+ 470:	82 17       	cp	r24, r18
+ 472:	93 07       	cpc	r25, r19
+ 474:	9c f3       	brlt	.-26     	; 0x45c <main+0x36>
+ 476:	e6 cf       	rjmp	.-52     	; 0x444 <main+0x1e>
+
+00000478 <__vector_16>:
+			_delay_ms(1);
+    }
+}
+
+ISR(ADC_vect)
+{
+ 478:	1f 92       	push	r1
+ 47a:	0f 92       	push	r0
+ 47c:	0f b6       	in	r0, 0x3f	; 63
+ 47e:	0f 92       	push	r0
+ 480:	11 24       	eor	r1, r1
+ 482:	2f 93       	push	r18
+ 484:	3f 93       	push	r19
+ 486:	4f 93       	push	r20
+ 488:	5f 93       	push	r21
+ 48a:	6f 93       	push	r22
+ 48c:	7f 93       	push	r23
+ 48e:	8f 93       	push	r24
+ 490:	9f 93       	push	r25
+ 492:	af 93       	push	r26
+ 494:	bf 93       	push	r27
+ 496:	ef 93       	push	r30
+ 498:	ff 93       	push	r31
+	acc.update();
+ 49a:	86 e6       	ldi	r24, 0x66	; 102
+ 49c:	90 e0       	ldi	r25, 0x00	; 0
+ 49e:	0e 94 77 00 	call	0xee	; 0xee <_ZN7atmicro13Accelerometer6updateEv>
+}
+ 4a2:	ff 91       	pop	r31
+ 4a4:	ef 91       	pop	r30
+ 4a6:	bf 91       	pop	r27
+ 4a8:	af 91       	pop	r26
+ 4aa:	9f 91       	pop	r25
+ 4ac:	8f 91       	pop	r24
+ 4ae:	7f 91       	pop	r23
+ 4b0:	6f 91       	pop	r22
+ 4b2:	5f 91       	pop	r21
+ 4b4:	4f 91       	pop	r20
+ 4b6:	3f 91       	pop	r19
+ 4b8:	2f 91       	pop	r18
+ 4ba:	0f 90       	pop	r0
+ 4bc:	0f be       	out	0x3f, r0	; 63
+ 4be:	0f 90       	pop	r0
+ 4c0:	1f 90       	pop	r1
+ 4c2:	18 95       	reti
+
+000004c4 <_GLOBAL__sub_I_acc>:
+ * Author : Animesh Sinha
+ */ 
+
+#include <avr/io.h>
+#include "atmicro.h"
+Accelerometer acc(ADC0, ADC1, ADC2);
+ 4c4:	22 e0       	ldi	r18, 0x02	; 2
+ 4c6:	41 e0       	ldi	r20, 0x01	; 1
+ 4c8:	60 e0       	ldi	r22, 0x00	; 0
+ 4ca:	86 e6       	ldi	r24, 0x66	; 102
+ 4cc:	90 e0       	ldi	r25, 0x00	; 0
+ 4ce:	0e 94 56 00 	call	0xac	; 0xac <_ZN7atmicro13AccelerometerC1ENS_10ADCchannelES1_S1_>
+ 4d2:	08 95       	ret
+
+000004d4 <_GLOBAL__sub_D_acc>:
+ 4d4:	86 e6       	ldi	r24, 0x66	; 102
+ 4d6:	90 e0       	ldi	r25, 0x00	; 0
+ 4d8:	0e 94 76 00 	call	0xec	; 0xec <_ZN7atmicro13AccelerometerD1Ev>
+ 4dc:	08 95       	ret
+
+000004de <__tablejump2__>:
+ 4de:	ee 0f       	add	r30, r30
+ 4e0:	ff 1f       	adc	r31, r31
+ 4e2:	05 90       	lpm	r0, Z+
+ 4e4:	f4 91       	lpm	r31, Z
+ 4e6:	e0 2d       	mov	r30, r0
+ 4e8:	09 94       	ijmp
+
+000004ea <__do_global_dtors>:
+ 4ea:	10 e0       	ldi	r17, 0x00	; 0
+ 4ec:	cb e2       	ldi	r28, 0x2B	; 43
+ 4ee:	d0 e0       	ldi	r29, 0x00	; 0
+ 4f0:	04 c0       	rjmp	.+8      	; 0x4fa <__do_global_dtors+0x10>
+ 4f2:	fe 01       	movw	r30, r28
+ 4f4:	0e 94 6f 02 	call	0x4de	; 0x4de <__tablejump2__>
+ 4f8:	21 96       	adiw	r28, 0x01	; 1
+ 4fa:	cc 32       	cpi	r28, 0x2C	; 44
+ 4fc:	d1 07       	cpc	r29, r17
+ 4fe:	c9 f7       	brne	.-14     	; 0x4f2 <__do_global_dtors+0x8>
+ 500:	f8 94       	cli
+
+00000502 <__stop_program>:
+ 502:	ff cf       	rjmp	.-2      	; 0x502 <__stop_program>
