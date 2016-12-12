@@ -8,16 +8,22 @@
 #include <avr/io.h>
 #include "atmicro.h"
 
-AnalogInput x(ADC0);
+AnalogInput x(ADC2);
 AnalogInput y(ADC1);
-AnalogInput z(ADC2);
-ParallelTextLCD lcd(IOPORTB, IOPIND2, IOPIND7, IOPIND5);
+AnalogInput z(ADC0);
+DigitalOutput led(IOPIND4);
+PushButtonSwitch sw(IOPINC0);
+USART com(9600);
+
 void handler(int value, ADCchannel pin);
-#define xm 600
+#define xm 500
 #define ym 600
 #define zm 600
-#define DRIFT 300
+#define MAXDRIFT 500
+#define DCOUNT 20
+#define SCOUNT 50
 int dangerlevel = 0, safetylevel = 0;
+bool fallen = false;
 
 
 int main(void)
@@ -53,38 +59,31 @@ ISR(ADC_vect)
 
 void handler(int value, ADCchannel pin)
 {
-	if(pin == ADC0)
-	{
-		lcd.integer(0, 0, value);
-		lcd.string(" ");
-	}
-	else if(pin == ADC1)
-	{
-		lcd.integer(5, 0, value);
-		lcd.string(" ");
-	}
-	else if(pin == ADC2)
-	{
-		lcd.integer(10, 0, value);
-		lcd.string(" ");
-	}
-	
 	int a = sqrt(pow(x.value-xm, 2)+pow(y.value-ym,2)+pow(z.value-zm,2));
-	if(fabs(a) > DRIFT)
+	if(fabs(a) > MAXDRIFT && fabs(a) < 10000)
 	{
 		dangerlevel++;
 		safetylevel = 0;
 	}
-	else if (safetylevel > 50)
+	else if (safetylevel > SCOUNT)
 	{
 		dangerlevel = 0;
+		safetylevel = 0;
 	}
 	else
 	{
 		safetylevel++;
 	}
-	lcd.integer(0, 1, dangerlevel);
-	lcd.string("  ");
-	lcd.integer(10, 1, a);
-	lcd.string("  ");
+
+	if(sw.isPressed())
+	{
+		fallen = false;
+		led.off();
+	}
+	if (dangerlevel > DCOUNT)
+	{
+		led.on();
+		fallen = true;
+		com.transmit(0x3e);
+	}
 }

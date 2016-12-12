@@ -8,7 +8,6 @@
 
 #include "USART.h"
 #include <util/delay.h>
-#include <avr/interrupt.h>
 
 namespace atmicro
 {
@@ -30,24 +29,14 @@ namespace atmicro
 
 	void USART::initialize()
 	{
-		UCSRB = (1<<RXEN)|(1<<TXEN)|(1<<RXCIE);
+		UCSRB = (1<<RXEN)|(1<<TXEN);
 		UCSRC = (1<<URSEL)|(1<<USBS)|(3<<UCSZ0);
-		sei();
 	}
 
 	void USART::transmit(unsigned char data)
 	{
 		while (!(UCSRA & (1<<UDRE)));
 		UDR = data;
-	}
-
-	void USART::transmit(const char* data)
-	{
-		while(*data > 0)
-		{
-			transmit(*data++);
-			_delay_ms(1);
-		}
 	}
 
 	unsigned char USART::receive(void)

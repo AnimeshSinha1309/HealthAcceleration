@@ -26,7 +26,6 @@ namespace atmicro
 		~USART();
 		void initialize();
 		void transmit(unsigned char data);
-		void transmit(const char* data);
 		unsigned char receive(void);
 	protected:
 	private:
