@@ -5,6 +5,33 @@
  * Author : Animesh Sinha
  */ 
 
+#define BOARDHUMAN
+
+#ifdef BOARDLOCAL
+
+	#include <avr/io.h>
+	#include "atmicro.h"
+	
+	int main()
+	{
+		ParallelTextLCD lcd(IOPORTB, IOPIND2, IOPIND7, IOPIND5);
+		USART com(9600);
+		while(1)
+		{
+			if(com.receive() == 0x05)
+				lcd.string(0, 0, "Emergency Alert!");
+			else if(com.receive() == 0xA0)
+				lcd.string(0, 0, "Totally Safe.   ");
+			else
+				lcd.string(0, 0, "It all looks OK.");
+			_delay_ms(250);
+		}
+	}
+
+#endif
+
+#ifdef BOARDHUMAN
+
 #include <avr/io.h>
 #include "atmicro.h"
 
@@ -19,22 +46,30 @@ void handler(int value, ADCchannel pin);
 #define xm 500
 #define ym 600
 #define zm 600
-#define MAXDRIFT 500
-#define DCOUNT 20
+#define MAXDRIFT 400
+#define DCOUNT 5
 #define SCOUNT 50
+
 int dangerlevel = 0, safetylevel = 0;
 bool fallen = false;
 
-
 int main(void)
 {
-    x.setCallback(handler);
-    y.setCallback(handler);
-    z.setCallback(handler);
+	x.setCallback(handler);
+	y.setCallback(handler);
+	z.setCallback(handler);
 	x.startConversion();
-	while (1) 
-    {
-    }
+	while (1)
+	{
+		if (fallen)
+		{
+			com.transmit(0x05);
+		}
+		else
+		{
+			com.transmit(0xA0);
+		}
+	}
 }
 
 ISR(ADC_vect)
@@ -84,6 +119,6 @@ void handler(int value, ADCchannel pin)
 	{
 		led.on();
 		fallen = true;
-		com.transmit(0x3e);
 	}
 }
+#endif
