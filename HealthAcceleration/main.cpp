@@ -5,7 +5,7 @@
  * Author : Animesh Sinha
  */ 
 
-#define BOARDHUMAN
+#define BOARDLOCAL
 
 #ifdef BOARDLOCAL
 
@@ -16,15 +16,27 @@
 	{
 		ParallelTextLCD lcd(IOPORTB, IOPIND2, IOPIND7, IOPIND5);
 		USART com(9600);
+		DigitalOutput buzzer(IOPINC0);
+		int i = 0;
 		while(1)
 		{
 			if(com.receive() == 0x05)
+			{
 				lcd.string(0, 0, "Emergency Alert!");
+				if(i > 10) buzzer.toggle();
+				i++;
+			}
 			else if(com.receive() == 0xA0)
+			{
 				lcd.string(0, 0, "Totally Safe.   ");
+				buzzer.off();
+			}
 			else
+			{
 				lcd.string(0, 0, "It all looks OK.");
-			_delay_ms(250);
+				buzzer.off();
+			}
+			_delay_ms(100);
 		}
 	}
 
